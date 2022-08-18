@@ -72,7 +72,7 @@ const start = async () => {
                                 .catch(error => {
                                     console.log(error.response.body);
                                 });
-                        }, 1800000)
+                        }, 60000)
                     }
 
 
