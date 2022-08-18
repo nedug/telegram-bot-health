@@ -20,11 +20,11 @@ const start = async () => {
     }
 
     bot.setMyCommands([
-        {command: '/start', description: 'Начальное приветствие'},
+        {command: '/start', description: 'Приветствие'},
 
-        {command: '/info', description: 'Инфа'},
+        {command: '/info', description: 'Статистика о здоровье'},
 
-        {command: '/settings', description: 'Инфа'},
+        {command: '/settings', description: 'Настройки'},
     ]);
 
     bot.on('message', async msg => {
@@ -59,15 +59,15 @@ const start = async () => {
                             } = user;
 
                             return bot.sendMessage(chatId, `
-Не пьете: ${withoutAlcohol} дн
-Не курите: ${withoutCigarette} дн
+Не пью: ${withoutAlcohol} дн
+Не курю: ${withoutCigarette} дн
 
-Съэкономлено денег: ${withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette} $
+Сэкономил денег: ${withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette} $
 
-Не выкурено сигарет: ${withoutCigarette * cigaretteOneDay} шт
+Не выкурил сигарет: ${withoutCigarette * cigaretteOneDay} шт
 
-Не выпито пива: ${withoutAlcohol * beerOneDay} л
-Не выпито крепких: ${withoutAlcohol * stiffOneDay} л
+Не выпил пива: ${withoutAlcohol * beerOneDay} л
+Не выпил виски: ${withoutAlcohol * stiffOneDay} л
 `
                             ).catch(error => {
                                 console.log(error.response.body);
@@ -75,7 +75,7 @@ const start = async () => {
                         }, 5000)
                     }
                     await bot.sendMessage(chatId, `<b>${msg.from.first_name}</b>, добро пожаловать в мой телеграм бот!`, {parse_mode: 'HTML'});
-                    return bot.sendMessage(chatId, `Tут вы найдете информацию о количестве дней без алкоголя!`, {parse_mode: 'HTML'});
+                    return bot.sendMessage(chatId, `Tут вы найдете информацию о количестве дней без алкоголя и сигарет!`, {parse_mode: 'HTML'});
                 }
 
                 if (text === '/info') {
