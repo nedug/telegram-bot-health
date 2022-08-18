@@ -59,21 +59,23 @@ const start = async () => {
                             } = user;
 
                             return bot.sendMessage(chatId, `
-Не пью: ${withoutAlcohol} дн
-Не курю: ${withoutCigarette} дн
+Не пью: <b>${withoutAlcohol}</b> дн
+Не курю: <b>${withoutCigarette}</b> дн
 
-Сэкономил денег: ${withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette} $
+Сэкономил денег: <b>${(withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette).toFixed(2)}</b> $
 
-Не выкурил сигарет: ${withoutCigarette * cigaretteOneDay} шт
+Не выкурил сигарет: <b>${(withoutCigarette * cigaretteOneDay).toFixed()}</b> шт
 
-Не выпил пива: ${withoutAlcohol * beerOneDay} л
-Не выпил виски: ${withoutAlcohol * stiffOneDay} л
-`
-                            ).catch(error => {
-                                console.log(error.response.body);
-                            });
-                        }, 5000)
+Не выпил пива: <b>${(withoutAlcohol * beerOneDay).toFixed(1)}</b> л
+Не выпил виски: <b>${(withoutAlcohol * stiffOneDay).toFixed(1)}</b> л
+`, {parse_mode: 'HTML'})
+                                .catch(error => {
+                                    console.log(error.response.body);
+                                });
+                        }, 300000)
                     }
+
+
                     await bot.sendMessage(chatId, `<b>${msg.from.first_name}</b>, добро пожаловать в мой телеграм бот!`, {parse_mode: 'HTML'});
                     return bot.sendMessage(chatId, `Tут вы найдете информацию о количестве дней без алкоголя и сигарет!`, {parse_mode: 'HTML'});
                 }
@@ -92,17 +94,17 @@ const start = async () => {
                     } = await UserModel.findOne({chatId});
 
                     return bot.sendMessage(chatId, `
-Не пьете: ${withoutAlcohol} дн
-Не курите: ${withoutCigarette} дн
+Не пью: <b>${withoutAlcohol}</b> дн
+Не курю: <b>${withoutCigarette}</b> дн
 
-Съэкономлено денег: ${withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette} $
+Сэкономил денег: <b>${(withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette).toFixed(2)}</b> $
 
-Не выкурено сигарет: ${withoutCigarette * cigaretteOneDay} шт
+Не выкурил сигарет: <b>${(withoutCigarette * cigaretteOneDay).toFixed()}</b> шт
 
-Не выпито пива: ${withoutAlcohol * beerOneDay} л
-Не выпито крепких: ${withoutAlcohol * stiffOneDay} л
-`
-                    ).catch(error => {
+Не выпил пива: <b>${(withoutAlcohol * beerOneDay).toFixed(1)}</b> л
+Не выпил виски: <b>${(withoutAlcohol * stiffOneDay).toFixed(1)}</b> л
+`, {parse_mode: 'HTML'})
+                    .catch(error => {
                         console.log(error.response.body);
                     })
                 }
@@ -174,8 +176,6 @@ const start = async () => {
         const user = await UserModel.findOne({chatId});
         user.beerOneDay = match;
         await user.save();
-
-        console.log(user)
 
         return bot.sendMessage(chatId, 'Настройка сохранена!');
     });
