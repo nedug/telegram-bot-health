@@ -12,6 +12,8 @@ const bot = new TelegramApi(token, {polling: true});
 
 const chats = {};
 
+// const users = [];
+
 
 // const startGame = async (chatId) => {
 //     await bot.sendMessage(chatId, `Сейчас я загадаю цифру от 0 до 9, а ты должен ее угадать!`);
@@ -21,6 +23,51 @@ const chats = {};
 // };
 
 
+// console.log(users)
+
+
+
+
+
+
+
+// users.forEach((u) => {
+//     setInterval(async () => {
+//         // const chatId = msg.chat.id;
+//
+//         const user = await UserModel.findOne({chatId: u});
+//
+//         let {
+//             withoutAlcohol,
+//             withoutCigarette,
+//             moneyAlcohol,
+//             moneyCigarette,
+//             cigaretteOneDay,
+//             beerOneDay,
+//             stiffOneDay
+//         } = user;
+//
+//         user.withoutAlcohol += 1;
+//         user.withoutCigarette += 1;
+//
+//         await user.save();
+//
+//         return bot.sendMessage(u, `
+// Не пьете: ${withoutAlcohol} дн
+// Не курите: ${withoutCigarette} дн
+//
+// Съэкономлено денег: ${withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette} $
+//
+// Не выкурено сигарет: ${withoutCigarette * cigaretteOneDay} шт
+//
+// Не выпито пива: ${withoutAlcohol * beerOneDay} л
+// Не выпито крепких: ${withoutAlcohol * stiffOneDay} л
+// `
+//         );
+//     }, 5000)
+// })
+
+
 const start = async () => {
 
     try {
@@ -28,6 +75,53 @@ const start = async () => {
     } catch (e) {
         console.log('Подключение к бд сломалось', e);
     }
+
+
+
+    const users = await UserModel.find();
+    //
+    // const users = [...usersAll];
+    //
+    // console.log(users)
+
+    users.forEach(u => {
+    setInterval(async () => {
+        // const chatId = msg.chat.id;
+
+        let user = await UserModel.findOne({chatId: u.chatId});
+
+        let {
+            withoutAlcohol,
+            withoutCigarette,
+            moneyAlcohol,
+            moneyCigarette,
+            cigaretteOneDay,
+            beerOneDay,
+            stiffOneDay
+        } = user;
+
+        user.withoutAlcohol += 1;
+        user.withoutCigarette += 1;
+
+        await user.save();
+
+
+        await bot.sendMessage(u.chatId, `
+Не пьете: ${withoutAlcohol} дн
+Не курите: ${withoutCigarette} дн
+
+Съэкономлено денег: ${withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette} $
+
+Не выкурено сигарет: ${withoutCigarette * cigaretteOneDay} шт
+
+Не выпито пива: ${withoutAlcohol * beerOneDay} л
+Не выпито крепких: ${withoutAlcohol * stiffOneDay} л
+`);
+
+    }, 5000)
+})
+
+
 
     bot.setMyCommands([
         {command: '/start', description: 'Начальное приветствие'},
@@ -46,31 +140,31 @@ const start = async () => {
         const text = msg.text;
         const chatId = msg.chat.id;
 
-        setInterval(async () => {
-            const chatId = msg.chat.id;
-
-            const user = await UserModel.findOne({chatId});
-
-            let {withoutAlcohol, withoutCigarette, moneyAlcohol, moneyCigarette, cigaretteOneDay, beerOneDay, stiffOneDay} = user;
-
-            user.withoutAlcohol += 1;
-            user.withoutCigarette += 1;
-
-            await user.save();
-
-            return bot.sendMessage(chatId, `
-Не пьете: ${withoutAlcohol} дн
-Не курите: ${withoutCigarette} дн
-
-Съэкономлено денег: ${withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette} $
-
-Не выкурено сигарет: ${withoutCigarette * cigaretteOneDay} шт
-
-Не выпито пива: ${withoutAlcohol * beerOneDay} л
-Не выпито крепких: ${withoutAlcohol * stiffOneDay} л
-`
-            );
-        }, 1800000)
+//         setInterval(async () => {
+//             const chatId = msg.chat.id;
+//
+//             const user = await UserModel.findOne({chatId});
+//
+//             let {withoutAlcohol, withoutCigarette, moneyAlcohol, moneyCigarette, cigaretteOneDay, beerOneDay, stiffOneDay} = user;
+//
+//             user.withoutAlcohol += 1;
+//             user.withoutCigarette += 1;
+//
+//             await user.save();
+//
+//             return bot.sendMessage(chatId, `
+// Не пьете: ${withoutAlcohol} дн
+// Не курите: ${withoutCigarette} дн
+//
+// Съэкономлено денег: ${withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette} $
+//
+// Не выкурено сигарет: ${withoutCigarette * cigaretteOneDay} шт
+//
+// Не выпито пива: ${withoutAlcohol * beerOneDay} л
+// Не выпито крепких: ${withoutAlcohol * stiffOneDay} л
+// `
+//             );
+//         }, 5000)
 
 
         try {
@@ -78,8 +172,48 @@ const start = async () => {
 
                 const user = await UserModel.findOne({chatId});
 
+//                 let intervalId;
+//
+//                 if (!intervalId) {
+//                     intervalId = setInterval(async () => {
+//                         // const chatId = msg.chat.id;
+//
+//                         const user = await UserModel.findOne({chatId});
+//
+//                         let {
+//                             withoutAlcohol,
+//                             withoutCigarette,
+//                             moneyAlcohol,
+//                             moneyCigarette,
+//                             cigaretteOneDay,
+//                             beerOneDay,
+//                             stiffOneDay
+//                         } = user;
+//
+//                         user.withoutAlcohol += 1;
+//                         user.withoutCigarette += 1;
+//
+//                         await user.save();
+//
+//                         return bot.sendMessage(chatId, `
+// Не пьете: ${withoutAlcohol} дн
+// Не курите: ${withoutCigarette} дн
+//
+// Съэкономлено денег: ${withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette} $
+//
+// Не выкурено сигарет: ${withoutCigarette * cigaretteOneDay} шт
+//
+// Не выпито пива: ${withoutAlcohol * beerOneDay} л
+// Не выпито крепких: ${withoutAlcohol * stiffOneDay} л
+// `
+//                         );
+//                     }, 5000)
+//                 }
+
                 if (!user) {
                     await UserModel.create({chatId});
+
+                    // users.push(chatId);
                 }
                 await bot.sendMessage(chatId, `<b>${msg.from.first_name}</b>, добро пожаловать в мой телеграм бот!`, {parse_mode: 'HTML'});
                 return bot.sendMessage(chatId, `Tут вы найдете информацию о количестве дней без алкоголя!`, {parse_mode: 'HTML'});
@@ -89,7 +223,15 @@ const start = async () => {
 
                 const chatId = msg.chat.id;
 
-                const {withoutAlcohol, withoutCigarette, moneyAlcohol, moneyCigarette, cigaretteOneDay, beerOneDay, stiffOneDay} = await UserModel.findOne({chatId});
+                const {
+                    withoutAlcohol,
+                    withoutCigarette,
+                    moneyAlcohol,
+                    moneyCigarette,
+                    cigaretteOneDay,
+                    beerOneDay,
+                    stiffOneDay
+                } = await UserModel.findOne({chatId});
 
                 return bot.sendMessage(chatId, `
 Не пьете: ${withoutAlcohol} дн
