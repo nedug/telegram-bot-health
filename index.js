@@ -1,6 +1,5 @@
 const TelegramApi = require('node-telegram-bot-api');
-const {gameOptions, againOptions, contactMeOptions, portfolioOptions} = require('./options');
-const axios = require('axios');
+const {contactMeOptions} = require('./options');
 const mongoose = require('mongoose');
 const UserModel = require('./models');
 require('dotenv').config();
@@ -59,25 +58,27 @@ const start = async () => {
                             } = user;
 
                             return bot.sendMessage(chatId, `
-Не пью: <b>${withoutAlcohol}</b> дн
-Не курю: <b>${withoutCigarette}</b> дн
+Не пью: <b>${withoutAlcohol}</b> дн  🔞
+Не курю: <b>${withoutCigarette}</b> дн  🚭
 
-Сэкономил денег: <b>${(withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette).toFixed(2)}</b> $
+Сэкономил денег: <b>${(withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette).toFixed(1)}</b> $  💵
 
-Не выкурил сигарет: <b>${(withoutCigarette * cigaretteOneDay).toFixed()}</b> шт
+Не выкурил сигарет: <b>${(withoutCigarette * cigaretteOneDay).toFixed()}</b> шт  🚬
 
-Не выпил пива: <b>${(withoutAlcohol * beerOneDay).toFixed(1)}</b> л
-Не выпил виски: <b>${(withoutAlcohol * stiffOneDay).toFixed(1)}</b> л
+Не выпил пива: <b>${(withoutAlcohol * beerOneDay).toFixed(1)}</b> л  🍺
+
+Не выпил виски: <b>${(withoutAlcohol * stiffOneDay).toFixed(1)}</b> л  🍸
 `, {parse_mode: 'HTML'})
                                 .catch(error => {
                                     console.log(error.response.body);
                                 });
-                        }, 300000)
+                        }, 1800000)
                     }
 
 
                     await bot.sendMessage(chatId, `<b>${msg.from.first_name}</b>, добро пожаловать в мой телеграм бот!`, {parse_mode: 'HTML'});
-                    return bot.sendMessage(chatId, `Tут вы найдете информацию о количестве дней без алкоголя и сигарет!`, {parse_mode: 'HTML'});
+                    return bot.sendMessage(chatId, `Tут вы найдете информацию о количестве дней
+без алкоголя и сигарет!  💪 ☘ 💜️ 🥊 🚀`, {parse_mode: 'HTML'});
                 }
 
                 if (text === '/info') {
@@ -94,19 +95,20 @@ const start = async () => {
                     } = await UserModel.findOne({chatId});
 
                     return bot.sendMessage(chatId, `
-Не пью: <b>${withoutAlcohol}</b> дн
-Не курю: <b>${withoutCigarette}</b> дн
+Не пью: <b>${withoutAlcohol}</b> дн  🔞
+Не курю: <b>${withoutCigarette}</b> дн  🚭
 
-Сэкономил денег: <b>${(withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette).toFixed(2)}</b> $
+Сэкономил денег: <b>${(withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette).toFixed(1)}</b> $  💵
 
-Не выкурил сигарет: <b>${(withoutCigarette * cigaretteOneDay).toFixed()}</b> шт
+Не выкурил сигарет: <b>${(withoutCigarette * cigaretteOneDay).toFixed()}</b> шт  🚬
 
-Не выпил пива: <b>${(withoutAlcohol * beerOneDay).toFixed(1)}</b> л
-Не выпил виски: <b>${(withoutAlcohol * stiffOneDay).toFixed(1)}</b> л
+Не выпил пива: <b>${(withoutAlcohol * beerOneDay).toFixed(1)}</b> л  🍺
+
+Не выпил виски: <b>${(withoutAlcohol * stiffOneDay).toFixed(1)}</b> л  🍸
 `, {parse_mode: 'HTML'})
-                    .catch(error => {
-                        console.log(error.response.body);
-                    })
+                        .catch(error => {
+                            console.log(error.response.body);
+                        })
                 }
 
                 if (text === '/contacts') {
