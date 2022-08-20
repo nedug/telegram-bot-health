@@ -41,20 +41,20 @@ const start = async () => {
                 moneyCigarette,
                 cigaretteOneDay,
                 beerOneDay,
-                stiffOneDay
+                stiffOneDay,
             } = user;
 
             return bot.sendMessage(u.chatId, `
 Не пью: <b>${withoutAlcohol}</b> дн  🔞
 Не курю: <b>${withoutCigarette}</b> дн  🚭
 
-Сэкономил денег: <b>${(withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette).toFixed(1)}</b> $  💵
+Сэкономил денег: <b>${( withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette ).toFixed(1)}</b> $  💵
 
-Не выкурил сигарет: <b>${(withoutCigarette * cigaretteOneDay).toFixed()}</b> шт  🚬
+Не выкурил сигарет: <b>${( withoutCigarette * cigaretteOneDay ).toFixed()}</b> шт  🚬
 
-Не выпил пива: <b>${(withoutAlcohol * beerOneDay).toFixed(1)}</b> л  🍺
+Не выпил пива: <b>${( withoutAlcohol * beerOneDay ).toFixed(1)}</b> л  🍺
 
-Не выпил виски: <b>${(withoutAlcohol * stiffOneDay).toFixed(1)}</b> л  🍸
+Не выпил виски: <b>${( withoutAlcohol * stiffOneDay ).toFixed(1)}</b> л  🍸
 `, {parse_mode: 'HTML'})
                 .catch(error => {
                     console.log(error.response.body);
@@ -105,20 +105,20 @@ const start = async () => {
                                     moneyCigarette,
                                     cigaretteOneDay,
                                     beerOneDay,
-                                    stiffOneDay
+                                    stiffOneDay,
                                 } = user;
 
                                 return bot.sendMessage(u.chatId, `
 Не пью: <b>${withoutAlcohol}</b> дн  🔞
 Не курю: <b>${withoutCigarette}</b> дн  🚭
 
-Сэкономил денег: <b>${(withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette).toFixed(1)}</b> $  💵
+Сэкономил денег: <b>${( withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette ).toFixed(1)}</b> $  💵
 
-Не выкурил сигарет: <b>${(withoutCigarette * cigaretteOneDay).toFixed()}</b> шт  🚬
+Не выкурил сигарет: <b>${( withoutCigarette * cigaretteOneDay ).toFixed()}</b> шт  🚬
 
-Не выпил пива: <b>${(withoutAlcohol * beerOneDay).toFixed(1)}</b> л  🍺
+Не выпил пива: <b>${( withoutAlcohol * beerOneDay ).toFixed(1)}</b> л  🍺
 
-Не выпил виски: <b>${(withoutAlcohol * stiffOneDay).toFixed(1)}</b> л  🍸
+Не выпил виски: <b>${( withoutAlcohol * stiffOneDay ).toFixed(1)}</b> л  🍸
 `, {parse_mode: 'HTML'})
                                     .catch(error => {
                                         console.log(error.response.body);
@@ -126,41 +126,41 @@ const start = async () => {
                             }, 86400000);
                         })
 
-//                         setInterval(async () => {
-//
-//                             let user = await UserModel.findOne({chatId});
-//
-//                             user.withoutAlcohol += 1;
-//                             user.withoutCigarette += 1;
-//
-//                             user = await user.save();
-//
-//                             const {
-//                                 withoutAlcohol,
-//                                 withoutCigarette,
-//                                 moneyAlcohol,
-//                                 moneyCigarette,
-//                                 cigaretteOneDay,
-//                                 beerOneDay,
-//                                 stiffOneDay
-//                             } = user;
-//
-//                             return bot.sendMessage(chatId, `
-// Не пью: <b>${withoutAlcohol}</b> дн  🔞
-// Не курю: <b>${withoutCigarette}</b> дн  🚭
-//
-// Сэкономил денег: <b>${(withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette).toFixed(1)}</b> $  💵
-//
-// Не выкурил сигарет: <b>${(withoutCigarette * cigaretteOneDay).toFixed()}</b> шт  🚬
-//
-// Не выпил пива: <b>${(withoutAlcohol * beerOneDay).toFixed(1)}</b> л  🍺
-//
-// Не выпил виски: <b>${(withoutAlcohol * stiffOneDay).toFixed(1)}</b> л  🍸
-// `, {parse_mode: 'HTML'})
-//                                 .catch(error => {
-//                                     console.log(error.response.body);
-//                                 });
-//                         }, 900000)
+                        //                         setInterval(async () => {
+                        //
+                        //                             let user = await UserModel.findOne({chatId});
+                        //
+                        //                             user.withoutAlcohol += 1;
+                        //                             user.withoutCigarette += 1;
+                        //
+                        //                             user = await user.save();
+                        //
+                        //                             const {
+                        //                                 withoutAlcohol,
+                        //                                 withoutCigarette,
+                        //                                 moneyAlcohol,
+                        //                                 moneyCigarette,
+                        //                                 cigaretteOneDay,
+                        //                                 beerOneDay,
+                        //                                 stiffOneDay
+                        //                             } = user;
+                        //
+                        //                             return bot.sendMessage(chatId, `
+                        // Не пью: <b>${withoutAlcohol}</b> дн  🔞
+                        // Не курю: <b>${withoutCigarette}</b> дн  🚭
+                        //
+                        // Сэкономил денег: <b>${(withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette).toFixed(1)}</b> $  💵
+                        //
+                        // Не выкурил сигарет: <b>${(withoutCigarette * cigaretteOneDay).toFixed()}</b> шт  🚬
+                        //
+                        // Не выпил пива: <b>${(withoutAlcohol * beerOneDay).toFixed(1)}</b> л  🍺
+                        //
+                        // Не выпил виски: <b>${(withoutAlcohol * stiffOneDay).toFixed(1)}</b> л  🍸
+                        // `, {parse_mode: 'HTML'})
+                        //                                 .catch(error => {
+                        //                                     console.log(error.response.body);
+                        //                                 });
+                        //                         }, 900000)
                     }
 
                     await bot.sendMessage(chatId, `<b>${msg.from.first_name}</b>, добро пожаловать в мой телеграм бот!`, {parse_mode: 'HTML'});
@@ -178,20 +178,20 @@ const start = async () => {
                         moneyCigarette,
                         cigaretteOneDay,
                         beerOneDay,
-                        stiffOneDay
+                        stiffOneDay,
                     } = await UserModel.findOne({chatId});
 
                     return bot.sendMessage(chatId, `
 Не пью: <b>${withoutAlcohol}</b> дн  🔞
 Не курю: <b>${withoutCigarette}</b> дн  🚭
 
-Сэкономил денег: <b>${(withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette).toFixed(1)}</b> $  💵
+Сэкономил денег: <b>${( withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette ).toFixed(1)}</b> $  💵
 
-Не выкурил сигарет: <b>${(withoutCigarette * cigaretteOneDay).toFixed()}</b> шт  🚬
+Не выкурил сигарет: <b>${( withoutCigarette * cigaretteOneDay ).toFixed()}</b> шт  🚬
 
-Не выпил пива: <b>${(withoutAlcohol * beerOneDay).toFixed(1)}</b> л  🍺
+Не выпил пива: <b>${( withoutAlcohol * beerOneDay ).toFixed(1)}</b> л  🍺
 
-Не выпил виски: <b>${(withoutAlcohol * stiffOneDay).toFixed(1)}</b> л  🍸
+Не выпил виски: <b>${( withoutAlcohol * stiffOneDay ).toFixed(1)}</b> л  🍸
 `, {parse_mode: 'HTML'})
                         .catch(error => {
                             console.log(error.response.body);
@@ -222,7 +222,7 @@ const start = async () => {
             } catch (e) {
                 return bot.sendMessage(chatId, 'Произошла какая-то ошибочка!)');
             }
-        }
+        },
     );
 
 
