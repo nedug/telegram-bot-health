@@ -59,7 +59,7 @@ const start = async () => {
                 .catch(error => {
                     console.log(error.response.body);
                 });
-        }, 1800000);
+        }, 86400000);
     })
 
 
@@ -123,7 +123,7 @@ const start = async () => {
                                     .catch(error => {
                                         console.log(error.response.body);
                                     });
-                            }, 1800000);
+                            }, 86400000);
                         })
 
 //                         setInterval(async () => {
