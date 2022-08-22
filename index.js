@@ -108,17 +108,23 @@ const start = async () => {
                                     stiffOneDay,
                                 } = user;
 
-                                return bot.sendMessage(u.chatId, `
-Не пью: <b>${withoutAlcohol}</b> дн  🔞
-Не курю: <b>${withoutCigarette}</b> дн  🚭
+                                const formatter = new Intl.NumberFormat('ru', {
+                                    style: 'unit',
+                                    unit: 'day',
+                                    unitDisplay: 'long',
+                                });
 
-Сэкономил денег: <b>${( withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette ).toFixed(1)}</b> $  💵
+                                return bot.sendMessage(chatId, `
+Не пью: <b>${formatter.format(withoutAlcohol)}</b>  🔞
+Не курю: <b>${formatter.format(withoutCigarette)}</b>  🚭
 
-Не выкурил сигарет: <b>${( withoutCigarette * cigaretteOneDay ).toFixed()}</b> шт  🚬
+Сэкономил денег: <b>${( withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette ).toFixed(1)} $</b>  💵
 
-Не выпил пива: <b>${( withoutAlcohol * beerOneDay ).toFixed(1)}</b> л  🍺
+Не выкурил сигарет: <b>${( withoutCigarette * cigaretteOneDay ).toFixed()} шт</b>  🚬
 
-Не выпил виски: <b>${( withoutAlcohol * stiffOneDay ).toFixed(1)}</b> л  🍸
+Не выпил пива: <b>${( withoutAlcohol * beerOneDay ).toFixed(1)} л</b>  🍺
+
+Не выпил виски: <b>${( withoutAlcohol * stiffOneDay ).toFixed(1)} л</b>  🍸
 `, {parse_mode: 'HTML'})
                                     .catch(error => {
                                         console.log(error.response.body);
@@ -181,17 +187,23 @@ const start = async () => {
                         stiffOneDay,
                     } = await UserModel.findOne({chatId});
 
+                    const formatter = new Intl.NumberFormat('ru', {
+                        style: 'unit',
+                        unit: 'day',
+                        unitDisplay: 'long',
+                    });
+
                     return bot.sendMessage(chatId, `
-Не пью: <b>${withoutAlcohol}</b> дн  🔞
-Не курю: <b>${withoutCigarette}</b> дн  🚭
+Не пью: <b>${formatter.format(withoutAlcohol)}</b>  🔞
+Не курю: <b>${formatter.format(withoutCigarette)}</b>  🚭
 
-Сэкономил денег: <b>${( withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette ).toFixed(1)}</b> $  💵
+Сэкономил денег: <b>${( withoutAlcohol * moneyAlcohol + withoutCigarette * moneyCigarette ).toFixed(1)} $</b>  💵
 
-Не выкурил сигарет: <b>${( withoutCigarette * cigaretteOneDay ).toFixed()}</b> шт  🚬
+Не выкурил сигарет: <b>${( withoutCigarette * cigaretteOneDay ).toFixed()} шт</b>  🚬
 
-Не выпил пива: <b>${( withoutAlcohol * beerOneDay ).toFixed(1)}</b> л  🍺
+Не выпил пива: <b>${( withoutAlcohol * beerOneDay ).toFixed(1)} л</b>  🍺
 
-Не выпил виски: <b>${( withoutAlcohol * stiffOneDay ).toFixed(1)}</b> л  🍸
+Не выпил виски: <b>${( withoutAlcohol * stiffOneDay ).toFixed(1)} л</b>  🍸
 `, {parse_mode: 'HTML'})
                         .catch(error => {
                             console.log(error.response.body);
