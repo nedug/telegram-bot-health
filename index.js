@@ -50,7 +50,7 @@ const start = async () => {
                 unitDisplay: 'long',
             });
 
-            return bot.sendMessage(chatId, `
+            return bot.sendMessage(u.chatId, `
 Не пью: <b>${formatter.format(withoutAlcohol)}</b>  🔞
 Не курю: <b>${formatter.format(withoutCigarette)}</b>  🚭
 
